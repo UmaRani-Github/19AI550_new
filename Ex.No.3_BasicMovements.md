@@ -1,6 +1,6 @@
-# Ex.No: 2  Basic movements in Unity 
-### DATE:                                                                            
-### REGISTER NUMBER : 
+# Ex.No: 3  Basic movements in Unity 
+### DATE:08/03/25                                                                            
+### REGISTER NUMBER : 2122223220014
 ### AIM: 
  To learn the basic movements translation,scaling and rotation of game objects through code.
 ### Procedure:
@@ -53,6 +53,11 @@ public class TransformOperations : MonoBehaviour
 ```
 ### Output:
 
+##### The Cube moves from left to right continuously.
+##### The Sphere rotates around its Y-axis.
+##### The Capsule scales up and down smoothly.
+
+![exp3](https://github.com/user-attachments/assets/08e40cb2-151f-4fe8-a96f-c698ca88ec85)
 
 
 
@@ -62,5 +67,3 @@ public class TransformOperations : MonoBehaviour
 
 ### Result:
 Thus the basic movement is learned through scripting
-
-
