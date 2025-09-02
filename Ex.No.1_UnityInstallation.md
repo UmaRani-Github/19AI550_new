@@ -1,6 +1,7 @@
 # Ex.No: 1  Installation of Unity for Game Development
-### DATE:                                                                            
-### REGISTER NUMBER : 
+### DATE:  25.8.25   
+## Name: Santhosh G
+### REGISTER NUMBER : 212223240152
 ### AIM: 
 To install Unity2022.3.57f1 or higher version for Game Development.
 ### Procedure:
