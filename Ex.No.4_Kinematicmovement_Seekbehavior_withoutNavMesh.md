@@ -82,9 +82,11 @@ public class fleeScript : MonoBehaviour
 ```
 ### Output:
 
+![WhatsApp Image 2026-03-10 at 08 50 00](https://github.com/user-attachments/assets/ea66729f-f3e4-4c32-9352-815c3ec5a190)
 
 
 
+![42](https://github.com/user-attachments/assets/af112d48-5865-4c73-908c-4a6e33107b06)
 
 
 
