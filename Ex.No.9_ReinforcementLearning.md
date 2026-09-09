@@ -1,6 +1,7 @@
 # Ex.No: 9  Implementation of RollarBall Design using Reinforcement Learning 
-### DATE:                                                                            
-### REGISTER NUMBER : 
+### DATE: 19/08/2026                                                                           
+### REGISTER NUMBER : 212225230204
+
 ### AIM: 
 To write a program to design RollerBall and train the Rollerbal by Reinforcement learning  in Unity 
 ### Installation Required 
@@ -48,10 +49,12 @@ mlagents-learn --help
 tensorboard --logdir results
 16 Get the results by running the localhost on specific port ( shown in tensorboard)
 ```  
-### Program:
-```
-1. File : RollerAgent.cs 
 
+### Program:
+
+#### 1. File : `RollerAgent.cs`
+
+```csharp
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
@@ -65,7 +68,8 @@ public class RollerAgent : Agent
 
     public override void Initialize()
     {
-        if (rBody == null) rBody = GetComponent<Rigidbody>();
+        if (rBody == null)
+            rBody = GetComponent<Rigidbody>();
     }
 
     public override void OnEpisodeBegin()
@@ -77,7 +81,11 @@ public class RollerAgent : Agent
 
         // Move target to a random location on the plane
         float range = 3.0f;
-        targetTransform.localPosition = new Vector3(Random.Range(-range, range), 0.5f, Random.Range(-range, range));
+        targetTransform.localPosition = new Vector3(
+            Random.Range(-range, range),
+            0.5f,
+            Random.Range(-range, range)
+        );
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -91,20 +99,30 @@ public class RollerAgent : Agent
         // Agent velocity (2 floats: x,z)
         sensor.AddObservation(rBody.velocity.x);
         sensor.AddObservation(rBody.velocity.z);
-        // -> total = 3 + 3 + 2 = 8
+
+        // Total = 3 + 3 + 2 = 8
     }
 
     public override void OnActionReceived(ActionBuffers actions)
     {
         // Continuous actions: [0] = moveX, [1] = moveZ
-        float moveX = Mathf.Clamp(actions.ContinuousActions[0], -1f, 1f);
-        float moveZ = Mathf.Clamp(actions.ContinuousActions[1], -1f, 1f);
+        float moveX = Mathf.Clamp(
+            actions.ContinuousActions[0], -1f, 1f
+        );
+
+        float moveZ = Mathf.Clamp(
+            actions.ContinuousActions[1], -1f, 1f
+        );
 
         Vector3 controlSignal = new Vector3(moveX, 0, moveZ);
+
         rBody.AddForce(controlSignal * forceMultiplier);
 
         // Reward shaping
-        float distanceToTarget = Vector3.Distance(transform.localPosition, targetTransform.localPosition);
+        float distanceToTarget = Vector3.Distance(
+            transform.localPosition,
+            targetTransform.localPosition
+        );
 
         // If agent reaches target -> give reward and end episode
         if (distanceToTarget < 1.5f)
@@ -120,7 +138,7 @@ public class RollerAgent : Agent
             EndEpisode();
         }
 
-        // Small time penalty to encourage speed (optional)
+        // Small time penalty to encourage speed
         AddReward(-1f / MaxStep);
     }
 
@@ -128,16 +146,22 @@ public class RollerAgent : Agent
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         var continuous = actionsOut.ContinuousActions;
+
         continuous[0] = Input.GetAxis("Horizontal");
         continuous[1] = Input.GetAxis("Vertical");
     }
 }
+```
 
-2. Create a "Rollerball.yaml" file (create a Config folder inside your project ) attach the following code 
+#### 2. File : `Rollerball.yaml`
 
+Create a **Config** folder inside your Unity project and create `Rollerball.yaml` inside it.
+
+```yaml
 behaviors:
   RollerBallBehavior:
     trainer_type: ppo
+
     hyperparameters:
       batch_size: 1024
       buffer_size: 10240
@@ -146,22 +170,29 @@ behaviors:
       epsilon: 0.2
       lambd: 0.95
       num_epoch: 3
+
     network_settings:
       normalize: false
       hidden_units: 128
       num_layers: 2
+
     reward_signals:
       extrinsic:
         gamma: 0.99
         strength: 1.0
+
     max_steps: 500000
     time_horizon: 64
     summary_freq: 10000
+```
+
+
 ### Output:
 
 
 
 
+<img width="1918" height="1079" alt="image" src="https://github.com/user-attachments/assets/9bc0dd7b-8e2f-479e-919c-d67a3ee6e9dc" />
 
 
 
